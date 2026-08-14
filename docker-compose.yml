@@ -1,0 +1,47 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: carmen_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-dbt}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-dbt}
+      POSTGRES_DB: ${POSTGRES_DB:-carmen}
+    ports:
+      # Host 5433 by default so it never collides with a local Postgres on 5432.
+      - "${POSTGRES_HOST_PORT:-5433}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-dbt} -d ${POSTGRES_DB:-carmen}"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+
+  dbt:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: carmen_dbt
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DBT_PROFILES_DIR: /usr/app/dbt
+      POSTGRES_HOST: db          # compose service name, NOT localhost
+      POSTGRES_PORT: 5432        # in-network port, NOT the published one
+      POSTGRES_USER: ${POSTGRES_USER:-dbt}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-dbt}
+      POSTGRES_DB: ${POSTGRES_DB:-carmen}
+      DBT_SCHEMA: ${DBT_SCHEMA:-raw}
+    volumes:
+      # Live-mount the repo so edits are picked up without rebuilding.
+      - .:/usr/app/dbt
+    working_dir: /usr/app/dbt
+    ports:
+      - "${DBT_DOCS_PORT:-8080}:8080"   # dbt docs serve
+    command: ["build"]
+
+volumes:
+  pgdata:
