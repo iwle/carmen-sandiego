@@ -1,0 +1,13 @@
+.git
+.gitignore
+.env
+target/
+dbt_packages/
+logs/
+.user.yml
+__pycache__/
+*.pyc
+.venv/
+venv/
+.DS_Store
+*.zip
