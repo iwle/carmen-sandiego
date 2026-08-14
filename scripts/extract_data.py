@@ -2,7 +2,7 @@
 
 import pandas as pd
 
-FILENAME = 'data/carmen_sightings_20220629061307.xlsx'
+FILENAME = "/usr/app/data/carmen_sightings_20220629061307.xlsx"
 SHEETS = {
     "EUROPE": "raw_sightings_europe",
     "ASIA": "raw_sightings_asia",
@@ -18,5 +18,5 @@ if __name__ == "__main__":
     book = pd.ExcelFile(FILENAME)
     for sheet, sheet_id in SHEETS.items():
         frame = pd.read_excel(book, sheet_name=sheet, dtype=str, keep_default_na=False, na_values=[""])
-        target = f"dbt/seeds/{sheet_id}.csv"
+        target = f"seeds/{sheet_id}.csv"
         frame.to_csv(target, index=False, encoding="utf-8")

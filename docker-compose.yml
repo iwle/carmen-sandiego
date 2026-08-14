@@ -38,6 +38,8 @@ services:
     volumes:
       # Live-mount the repo so edits are picked up without rebuilding.
       - ./dbt:/usr/app/dbt
+      - ./scripts:/usr/app/scripts
+      - ./data:/usr/app/data
     working_dir: /usr/app/dbt
     ports:
       - "${DBT_DOCS_PORT:-8080}:8080"   # dbt docs serve
