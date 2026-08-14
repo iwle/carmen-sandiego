@@ -1,0 +1,12 @@
+models:
+  - name: staging
+    description: "Staging models"
+    columns:
+      - name: id
+        description: "Unique identifier for the sighting"
+      - name: date
+        description: "Date of the sighting"
+      - name: location
+        description: "Location of the sighting"
+      - name: species
+        description: "Species observed in the sighting"
