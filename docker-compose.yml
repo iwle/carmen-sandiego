@@ -37,7 +37,7 @@ services:
       DBT_SCHEMA: ${DBT_SCHEMA:-raw}
     volumes:
       # Live-mount the repo so edits are picked up without rebuilding.
-      - .:/usr/app/dbt
+      - ./dbt:/usr/app/dbt
     working_dir: /usr/app/dbt
     ports:
       - "${DBT_DOCS_PORT:-8080}:8080"   # dbt docs serve
