@@ -28,3 +28,6 @@ models:
     mart:
       +schema: mart
       +materialized: table
+    analytics:
+      +schema: analytics
+      +materialized: table
