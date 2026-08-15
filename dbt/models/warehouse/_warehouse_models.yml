@@ -106,3 +106,27 @@ models:
         description: "Day of the date"
         tests:
           - not_null
+  - name: dim_location
+    description: "Dimension model for location data"
+    columns:
+      - name: location_key
+        description: "MD5 key for the location"
+        tests:
+          - not_null
+          - unique
+      - name: city
+        description: "City of the sighting"
+        tests:
+          - not_null
+      - name: country_code
+        description: "Country code of the sighting"
+        tests:
+          - not_null
+      - name: latitude
+        description: "Latitude of the sighting location"
+        tests:
+          - not_null
+      - name: longitude
+        description: "Longitude of the sighting location"
+        tests:
+          - not_null
