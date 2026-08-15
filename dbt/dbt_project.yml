@@ -23,3 +23,6 @@ models:
       +materialized: view
     marts:
       +materialized: table
+    warehouse:
+      +materialized: table
+      +schema: warehouse
