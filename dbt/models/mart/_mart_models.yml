@@ -93,4 +93,41 @@ models:
         description: "Behavior observed during the sighting"
         tests:
           - not_null
-  
+  - name: fact_sightings
+    description: "Fact model for sightings data"
+    columns:
+      - name: sighting_key
+        description: "MD5 key for the sighting"
+        tests:
+          - not_null
+          - unique
+      - name: witness_date_key
+        description: "Char of witness date"
+        tests:
+          - not_null
+      - name: report_date_key
+        description: "Char of report date"
+        tests:
+          - not_null
+      - name: witness_key
+        description: "Foreign key to dim_witness"
+        tests:
+          - not_null
+      - name: agent_key
+        description: "Foreign key to dim_agent"
+        tests:
+          - not_null
+      - name: agency_key
+        description: "Foreign key to dim_agency"
+        tests:
+          - not_null
+      - name: location_key
+        description: "Foreign key to dim_location"
+        tests:
+          - not_null
+      - name: attribute_key
+        description: "Foreign key to dim_attribute"
+        tests:
+          - not_null
+      - name: behavior_key
+        description: "Foreign key to dim_behavior"
