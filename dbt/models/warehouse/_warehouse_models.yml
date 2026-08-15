@@ -82,3 +82,27 @@ models:
         tests:
           - not_null
           - unique
+  - name: dim_temporal
+    description: "Dimension model for temporal data"
+    columns:
+      - name: date_key
+        description: "Date key in YYYYMMDD format"
+        tests:
+          - not_null
+          - unique
+      - name: date
+        description: "Date in YYYY-MM-DD format"
+        tests:
+          - not_null
+      - name: year
+        description: "Year of the date"
+        tests:
+          - not_null
+      - name: month
+        description: "Month of the date"
+        tests:
+          - not_null
+      - name: day
+        description: "Day of the date"
+        tests:
+          - not_null
