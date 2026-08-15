@@ -24,7 +24,7 @@ models:
       +materialized: view
     intermediate:
       +schema: int
-      +materialized: view
+      +materialized: ephemeral
     mart:
       +schema: mart
       +materialized: table
