@@ -32,3 +32,7 @@
 {% macro clean_string(column) -%}
     nullif(trim(cast({{ column }} as varchar)), '')
 {%- endmacro %}
+
+{% macro from_date_to_char(column) -%}
+    (to_char({{ column }}, 'YYYYMMDD'))::integer
+{%- endmacro %}
