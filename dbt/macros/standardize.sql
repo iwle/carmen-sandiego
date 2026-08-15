@@ -7,16 +7,13 @@
     )
 {%- endmacro %}
 
-
 {% macro to_date(column) -%}
     nullif(trim(cast({{ column }} as varchar)), '')::date
 {%- endmacro %}
 
-
 {% macro to_float(column) -%}
     nullif(trim(cast({{ column }} as varchar)), '')::double precision
 {%- endmacro %}
-
 
 {% macro to_boolean(column) -%}
     case lower(trim(cast({{ column }} as varchar)))
@@ -32,7 +29,6 @@
     end
 {%- endmacro %}
 
-
 {% macro clean_string(column) -%}
     nullif(trim(cast({{ column }} as varchar)), '')
 {%- endmacro %}
@@ -41,7 +37,6 @@
 {% macro extract_date_key(column) -%}
     (to_char({{ column }}, 'YYYYMMDD'))::integer
 {%- endmacro %}
-
 
 {% macro standardize_raw(relation, region, mapping) %}
     {%- set column_names = [
