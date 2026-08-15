@@ -139,3 +139,11 @@ models:
           - not_null
       - name: attribute_text
         description: "Textual representation of the attributes present"
+  - name: dim_behavior
+    description: "Dimension model for behavior data"
+    columns:
+      - name: behavior
+        description: "Behavior observed during the sighting"
+        tests:
+          - not_null
+  
