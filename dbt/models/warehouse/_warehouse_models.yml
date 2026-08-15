@@ -66,3 +66,19 @@ models:
           - not_null
       - name: agency_region
         description: "Region where the agency is located"
+  - name: dim_agent
+    description: "Dimension model for agent data"
+    columns:
+      - name: agent_key
+        description: "MD5 key for the agent"
+        tests:
+          - not_null
+          - unique
+  - name: dim_witness
+    description: "Dimension model for witness data"
+    columns:
+      - name: witness_key
+        description: "MD5 key for the witness"
+        tests:
+          - not_null
+          - unique
