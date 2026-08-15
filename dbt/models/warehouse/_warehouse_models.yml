@@ -114,3 +114,30 @@ models:
         description: "Longitude of the sighting location"
         tests:
           - not_null
+  - name: dim_attribute
+    description: "Dimension model for item attributes or items carried"
+    columns:
+      - name: has_weapon
+        description: "Indicates if a weapon was present (boolean)"
+        tests:
+          - not_null
+      - name: has_hat
+        description: "Indicates if a hat was present (boolean)"
+        tests:
+          - not_null
+      - name: has_jacket
+        description: "Indicates if a jacket was present (boolean)"
+        tests:
+          - not_null
+      - name: has_weapon_has_jacket_no_hat
+        description: "Indicates if a weapon and jacket were present but no hat (boolean)"
+        tests:
+          - not_null
+      - name: attribute_count
+        description: "Count of attributes present (weapon, hat, jacket)"
+        tests:
+          - not_null
+      - name: attribute_text
+        description: "Textual representation of the attributes present"
+        tests:
+          - not_null
