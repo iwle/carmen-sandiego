@@ -17,7 +17,7 @@
 
     {%- set q = {} -%}
     {%- for key in column_names -%}
-        {%- set _ = q.update({key: mapping[key]}) -%}
+        {%- set _ = q.update({key: adapter.quote(mapping[key])}) -%}
     {%- endfor -%}
 
 with source as (
