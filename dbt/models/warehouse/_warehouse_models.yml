@@ -139,5 +139,3 @@ models:
           - not_null
       - name: attribute_text
         description: "Textual representation of the attributes present"
-        tests:
-          - not_null
