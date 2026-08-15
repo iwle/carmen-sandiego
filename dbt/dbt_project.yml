@@ -22,8 +22,6 @@ models:
     staging:
       +schema: stg
       +materialized: view
-    marts:
+    mart:
+      +schema: mart
       +materialized: table
-    warehouse:
-      +materialized: table
-      +schema: warehouse
