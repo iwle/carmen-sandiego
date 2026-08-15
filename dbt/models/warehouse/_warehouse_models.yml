@@ -52,3 +52,17 @@ models:
           - not_null
       - name: behavior
         description: "Behavior observed during the sighting"
+  - name: dim_agency
+    description: "Dimension model for agency data"
+    columns:
+      - name: agency_key
+        description: "MD5 key for the agency"
+        tests:
+          - not_null
+          - unique
+      - name: agency_city
+        description: "City where the agency is located"
+        tests:
+          - not_null
+      - name: agency_region
+        description: "Region where the agency is located"
