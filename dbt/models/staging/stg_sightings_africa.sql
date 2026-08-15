@@ -1,95 +1,21 @@
-with source as (
-
-    select * from {{ ref('raw_sightings_africa') }}
-
-),
-
-renamed as (
-
-    select
-        cast(nullif(trim(cast("date_witness" as varchar)), '') as date) as date_witness,
-        cast(nullif(trim(cast("date_agent" as varchar)), '') as date) as date_agent,
-        nullif(trim(cast("witness" as varchar)), '') as witness,
-        nullif(trim(cast("agent" as varchar)), '') as agent,
-        nullif(trim(cast("region_hq" as varchar)), '') as city_agent,
-
-        nullif(trim(cast("country" as varchar)), '') as country,
-
-        nullif(trim(cast("city" as varchar)), '') as city,
-        cast(nullif(trim(cast("latitude" as varchar)), '') as double precision) as latitude,
-        cast(nullif(trim(cast("longitude" as varchar)), '') as double precision) as longitude,
-
-        -- Held as raw tokens here; resolved to booleans in the next CTE.
-        lower(nullif(trim(cast("has_weapon" as varchar)), '')) as has_weapon,
-        lower(nullif(trim(cast("has_hat" as varchar)), '')) as has_hat,
-        lower(nullif(trim(cast("has_jacket" as varchar)), '')) as has_jacket,
-
-        lower(nullif(trim(cast("behavior" as varchar)), '')) as behavior,
-
-        'AFRICA' as agency_region
-
-    from source
-
-),
-
-parsed as (
-
-    select
-        renamed.date_witness,
-        renamed.date_agent,
-        renamed.witness,
-        renamed.agent,
-        renamed.city_agent,
-        renamed.country,
-        renamed.city,
-        renamed.latitude,
-        renamed.longitude,
-        renamed.has_weapon,
-        renamed.has_hat,
-        renamed.has_jacket,
-        renamed.behavior,
-        renamed.agency_region
-
-    from renamed
-),
-
-final as (
-
-    select
-        md5(
-            coalesce(cast(agency_region as varchar), '<<null>>') || '||' ||
-            coalesce(cast(date_witness  as varchar), '<<null>>') || '||' ||
-            coalesce(cast(date_agent    as varchar), '<<null>>') || '||' ||
-            coalesce(cast(witness       as varchar), '<<null>>') || '||' ||
-            coalesce(cast(agent         as varchar), '<<null>>') || '||' ||
-            coalesce(cast(city_agent    as varchar), '<<null>>') || '||' ||
-            coalesce(cast(country       as varchar), '<<null>>') || '||' ||
-            coalesce(cast(city          as varchar), '<<null>>') || '||' ||
-            coalesce(cast(has_weapon    as varchar), '<<null>>') || '||' ||
-            coalesce(cast(has_hat       as varchar), '<<null>>') || '||' ||
-            coalesce(cast(has_jacket    as varchar), '<<null>>') || '||' ||
-            coalesce(cast(behavior      as varchar), '<<null>>')
-        ) as sighting_id,
-
-        agency_region,
-        date_witness,
-        witness,
-        agent,
-        date_agent,
-        city_agent,
-        country,
-        city,
-        latitude,
-        longitude,
-        has_weapon,
-        has_hat,
-        has_jacket,
-        behavior,
-
-        (date_agent - date_witness) as days_to_file
-
-    from parsed
-
-)
-
-select * from final
+{{
+    standardize_raw(
+        relation = ref('raw_sightings_africa'),
+        region   = 'AFRICA',
+        mapping  = {
+        'date_witness': 'date_witness',
+        'witness'     : 'witness',
+        'agent'       : 'agent',
+        'date_agent'  : 'date_agent',
+        'city_agent'  : 'region_hq',
+        'country'     : 'country',
+        'city'        : 'city',
+        'latitude'    : 'latitude',
+        'longitude'   : 'longitude',
+        'has_weapon'  : 'has_weapon',
+        'has_hat'     : 'has_hat',
+        'has_jacket'  : 'has_jacket',
+        'behavior'    : 'behavior'
+        }
+    )
+}}
