@@ -22,6 +22,9 @@ models:
     staging:
       +schema: stg
       +materialized: view
+    intermediate:
+      +schema: int
+      +materialized: view
     mart:
       +schema: mart
       +materialized: table
