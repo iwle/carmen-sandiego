@@ -1,0 +1,9 @@
+models:
+  - name: analytics_region
+    description: "For each month, which agency region is Carmen Sandiego most likely to be found?"
+  - name: analytics_attribute
+    description: "For each month, what is probability that Carmen Sandiego is armed and wearing a jacket, but not wearing a hat?"
+  - name: analytics_behavior
+    description: "What are the three most occuring beahaviors for Carmen Sandiego sightings?"
+  - name: analytics_behavior_by_month
+    description: "For each month, what is the probability that Carmen Sandiego exhibits one of her three most occurring behaviors?"
