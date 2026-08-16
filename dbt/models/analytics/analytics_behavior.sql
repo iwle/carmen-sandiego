@@ -21,7 +21,7 @@ select
     sightings,
     round(sightings::numeric / sum(sightings) over (), 6) as proportion_of_all_sightings,
     row_number() over (order by sightings desc, behavior) as rank_behavior,
-    (row_number() over (order by sightings desc, behavior) <= 3) as is_top_three
+    (row_number() over (order by sightings desc, behavior) <= 3) as is_top_three_behavior
 from number_of_sightings_per_behavior
 order by rank_behavior
 

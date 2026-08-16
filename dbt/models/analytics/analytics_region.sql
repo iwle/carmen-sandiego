@@ -7,7 +7,7 @@ with sightings as (
         dim_agency.agency_region
     from {{ ref('fact_sightings') }} as fact_sightings
     inner join {{ ref('dim_temporal') }} as dim_temporal
-        on fact_sightings.witness_date_key = dim_temporal.date_key
+        on fact_sightings.witness_date_key = dim_temporal.temporal_key
     inner join {{ ref('dim_agency') }} as dim_agency
         on fact_sightings.agency_key = dim_agency.agency_key
 ),
