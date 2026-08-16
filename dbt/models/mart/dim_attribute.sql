@@ -26,6 +26,7 @@ select
     has_weapon,
     has_hat,
     has_jacket,
+    (has_weapon and has_jacket and not has_hat) as has_weapon_has_jacket_no_hat,
     (
         case when has_weapon then 1 else 0 end
         + case when has_hat then 1 else 0 end
