@@ -7,6 +7,83 @@ This is a dbt project that does the following:
 3. Normalizes them into BCNF star schema.
 4. Answer four analytical questions for the Interpol team.
 
+## Quickstart
+
+Run every step with `docker compose`.
+
+```bash
+# 1. Build the dbt image
+docker compose build
+
+# 2. Start Postgres in the background
+docker compose up -d db
+
+# 3. Install dbt packages (dbt_utils)
+docker compose run --rm dbt deps
+
+# 4. Load the seed CSVs
+docker compose run --rm dbt seed
+
+# 5. Run all models in DAG order
+docker compose run --rm dbt run
+
+# 6. Run the data tests
+docker compose run --rm dbt test
+```
+
+Steps 4-6 can be run together by `docker compose run --rm dbt build`.
+
+## PgAdmin
+
+To run SQL on the tables, use the `pgadmin` service that ships with `docker compose`.
+
+```bash
+# 1. Run pgAdmin in Docker
+docker compose up -d db
+
+# 2. Start pgAdmin
+docker compose up -d pgadmin
+```
+
+Then open `http://localhost:5050` in your browser and log in with:
+
+- **Email:** `admin@example.com`
+- **Password:** `admin`
+
+After you log in, register a new server and point it at the `db` service using the *Docker network* hostname/port, not the published host port:
+
+| Field | Value |
+|---|---|
+| Host name/address | `db` |
+| Port | `5432` |
+| Maintenance database | `carmen` (or `${POSTGRES_DB}`) |
+| Username | `dbt` (or `${POSTGRES_USER}`) |
+| Password | `dbt` (or `${POSTGRES_PASSWORD}`) |
+
+The tables built by dbt live under the `raw`, `stg`, `mart`, and `analytics` schemas.
+
+## Documentation
+
+Generate and serve the dbt docs site with `docker compose`.
+
+```bash
+# 1. Build the catalog/manifest artifacts
+docker compose run --rm dbt docs generate
+
+# 2. Serve the docs site on http://localhost:8080
+docker compose run --rm --service-ports dbt docs serve --host 0.0.0.0 --port 8080 --no-browser
+```
+
+Then open `http://localhost:8080` in your browser.
+
+If port 8080 is already taken on your machine, publish the docs on a different host port by setting `DBT_DOCS_PORT` before the second command, e.g.:
+
+```bash
+DBT_DOCS_PORT=8081 docker compose run --rm --service-ports dbt docs serve --host 0.0.0.0 --port 8080 --no-browser
+```
+
+and open `http://localhost:8081` instead.
+
 ## Answers
 
 a. For each month, which agency region is Carmen Sandiego most likely to be found?
@@ -123,53 +200,6 @@ order by month_number;
 | 11 | November | 1107 | 160 | 0.1445 | 0.1304 |
 | 12 | December | 1144 | 158 | 0.1381 | 0.1304 |
 
-## Quickstart
-
-Run every step with `docker compose`.
-
-```bash
-# 1. Build the dbt image
-docker compose build
-
-# 2. Start Postgres in the background
-docker compose up -d db
-
-# 3. Install dbt packages (dbt_utils)
-docker compose run --rm dbt deps
-
-# 4. Load the seed CSVs
-docker compose run --rm dbt seed
-
-# 5. Run all models in DAG order
-docker compose run --rm dbt run
-
-# 6. Run the data tests
-docker compose run --rm dbt test
-```
-
-Steps 4-6 can be run together by `docker compose run --rm dbt build`.
-
-## Documentation
-
-Generate and serve the dbt docs site with `docker compose`.
-
-```bash
-# 1. Build the catalog/manifest artifacts
-docker compose run --rm dbt docs generate
-
-# 2. Serve the docs site on http://localhost:8080
-docker compose run --rm --service-ports dbt docs serve --host 0.0.0.0 --port 8080 --no-browser
-```
-
-Then open `http://localhost:8080` in your browser.
-
-If port 8080 is already taken on your machine, publish the docs on a different host port by setting `DBT_DOCS_PORT` before the second command, e.g.:
-
-```bash
-DBT_DOCS_PORT=8081 docker compose run --rm --service-ports dbt docs serve --host 0.0.0.0 --port 8080 --no-browser
-```
-
-and open `http://localhost:8081` instead.
 
 ## Data Pipeline Flow
 
