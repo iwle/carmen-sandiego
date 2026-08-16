@@ -105,29 +105,62 @@ models:
         description: "Char of witness date"
         tests:
           - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_temporal')
+                field: temporal_key
       - name: report_date_key
         description: "Char of report date"
         tests:
           - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_temporal')
+                field: temporal_key
       - name: witness_key
         description: "Foreign key to dim_witness"
         tests:
           - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_witness')
+                field: witness_key
       - name: agent_key
         description: "Foreign key to dim_agent"
         tests:
           - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_agent')
+                field: agent_key
       - name: agency_key
         description: "Foreign key to dim_agency"
         tests:
           - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_agency')
+                field: agency_key
       - name: location_key
         description: "Foreign key to dim_location"
         tests:
           - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_location')
+                field: location_key
       - name: attribute_key
         description: "Foreign key to dim_attribute"
         tests:
           - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_attribute')
+                field: attribute_key
       - name: behavior_key
         description: "Foreign key to dim_behavior"
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_behavior')
+                field: behavior_key
