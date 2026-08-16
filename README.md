@@ -56,9 +56,9 @@ After you log in, register a new server and point it at the `db` service using t
 |---|---|
 | Host name/address | `db` |
 | Port | `5432` |
-| Maintenance database | `carmen` (or `${POSTGRES_DB}`) |
-| Username | `dbt` (or `${POSTGRES_USER}`) |
-| Password | `dbt` (or `${POSTGRES_PASSWORD}`) |
+| Maintenance database | `carmen` |
+| Username | `dbt` |
+| Password | `dbt` |
 
 The tables built by dbt live under the `raw`, `stg`, `mart`, and `analytics` schemas.
 
