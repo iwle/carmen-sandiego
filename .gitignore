@@ -8,9 +8,6 @@ dbt_packages/
 logs/
 .user.yml
 
-# dbt profiles — never commit credentials
-profiles.yml
-
 # Python
 .venv/
 venv/
