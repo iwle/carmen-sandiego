@@ -9,9 +9,51 @@ This is a dbt project that does the following:
 
 ## Quickstart
 
+Run every step with `docker compose`.
+
+```bash
+# 1. Build the dbt image
+docker compose build
+
+# 2. Start Postgres in the background
+docker compose up -d db
+
+# 3. Install dbt packages (dbt_utils)
+docker compose run --rm dbt deps
+
+# 4. Load the seed CSVs
+docker compose run --rm dbt seed
+
+# 5. Run all models in DAG order
+docker compose run --rm dbt run
+
+# 6. Run the data tests
+docker compose run --rm dbt test
 ```
 
+Steps 4-6 can be run together by `docker compose run --rm dbt build`.
+
+## Documentation
+
+Generate and serve the dbt docs site with `docker compose`.
+
+```bash
+# 1. Build the catalog/manifest artifacts
+docker compose run --rm dbt docs generate
+
+# 2. Serve the docs site on http://localhost:8080
+docker compose run --rm --service-ports dbt docs serve --host 0.0.0.0 --port 8080 --no-browser
 ```
+
+Then open `http://localhost:8080` in your browser.
+
+If port 8080 is already taken on your machine, publish the docs on a different host port by setting `DBT_DOCS_PORT` before the second command, e.g.:
+
+```bash
+DBT_DOCS_PORT=8081 docker compose run --rm --service-ports dbt docs serve --host 0.0.0.0 --port 8080 --no-browser
+```
+
+and open `http://localhost:8081` instead.
 
 ## Data Pipeline Diagram
 
@@ -94,4 +136,18 @@ The Carmen project has a star schema:
 
 The entity-relationship diagram is as follows.
 
+![Entity Relationship Diagram](./erd.svg)
 
+### Generating the diagram
+
+```bash
+# 1. Regenerate the manifest so it reflects the current relationships tests
+docker compose run --rm dbt docs generate
+
+# 2. Install dbterd (a local Python CLI, not a dbt package)
+pip install dbterd
+
+# 3. Render the mart-layer star schema as a Mermaid ER diagram
+cd dbt
+python -m dbterd run -t mermaid --artifacts-dir target -s "schema:mart" -o . -ofn erd.md
+```
