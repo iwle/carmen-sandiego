@@ -1,57 +1,70 @@
+version: 2
+
 models:
   - name: stg_sightings_africa
-    description: "Staging model for sightings data from Africa"
+    description: "Staging model for Africa sightings data"
     columns:
-      - name: date_witness
-        description: "The date the witness observed the sighting"
-        tests:
+      - name: sighting_id
+        description: "Surrogate key over the full natural record of the report."
+        data_tests:
           - not_null
-      - name: date_agent
-        description: "The date the agent observed the sighting"
-        tests:
+          - unique
+      - name: agency_region
+        description: "Region literal for the filing agency. Constant within the model."
+        data_tests:
+          - not_null
+      - name: date_witness
+        description: "Date the witness saw the perpetrator."
+        data_tests:
           - not_null
       - name: witness
-        description: "Name of the witness"
-        tests:
+        description: "Name of the witness."
+        data_tests:
           - not_null
       - name: agent
-        description: "Name of the agent"
-        tests:
+        description: "Name of the field agent who filed the report."
+        data_tests:
+          - not_null
+      - name: date_agent
+        description: "Date the field agent filed the report."
+        data_tests:
           - not_null
       - name: city_agent
-        description: "City where the agent is located"
-        tests:
+        description: "HQ city the field agent reports to."
+        data_tests:
           - not_null
       - name: country
-        description: "Country where the sighting occurred"
-        tests:
+        description: "ISO-3166 alpha-2 country code of the sighting."
+        data_tests:
           - not_null
       - name: city
-        description: "City where the sighting occurred"
-        tests:
+        description: "City of the sighting."
+        data_tests:
           - not_null
       - name: latitude
-        description: "Latitude of the sighting location"
-        tests:
+        description: "Latitude of the sighting."
+        data_tests:
           - not_null
       - name: longitude
-        description: "Longitude of the sighting location"
-        tests:
+        description: "Longitude of the sighting."
+        data_tests:
           - not_null
       - name: has_weapon
-        description: "Indicates if a weapon was present (boolean)"
-        tests:
+        description: "Was the perpetrator observed to be armed?"
+        data_tests:
           - not_null
       - name: has_hat
-        description: "Indicates if a hat was present (boolean)"
-        tests:
+        description: "Was the perpetrator wearing a hat?"
+        data_tests:
           - not_null
       - name: has_jacket
-        description: "Indicates if a jacket was present (boolean)"
-        tests:
+        description: "Was the perpetrator wearing a jacket?"
+        data_tests:
           - not_null
       - name: behavior
-        description: "Behavior observed during the sighting"
+        description: "Short description of observed behavior."
+        data_tests:
+          - not_null
   - name: stg_sightings_america
     description: "Staging model for America sightings data"
     columns:
@@ -118,6 +131,326 @@ models:
           - not_null
   - name: stg_sightings_asia
     description: "Staging model for Asia sightings data"
+    columns:
+      - name: sighting_id
+        description: "Surrogate key over the full natural record of the report."
+        data_tests:
+          - not_null
+          - unique
+      - name: agency_region
+        description: "Region literal for the filing agency. Constant within the model."
+        data_tests:
+          - not_null
+      - name: date_witness
+        description: "Date the witness saw the perpetrator."
+        data_tests:
+          - not_null
+      - name: witness
+        description: "Name of the witness."
+        data_tests:
+          - not_null
+      - name: agent
+        description: "Name of the field agent who filed the report."
+        data_tests:
+          - not_null
+      - name: date_agent
+        description: "Date the field agent filed the report."
+        data_tests:
+          - not_null
+      - name: city_agent
+        description: "HQ city the field agent reports to."
+        data_tests:
+          - not_null
+      - name: country
+        description: "ISO-3166 alpha-2 country code of the sighting."
+        data_tests:
+          - not_null
+      - name: city
+        description: "City of the sighting."
+        data_tests:
+          - not_null
+      - name: latitude
+        description: "Latitude of the sighting."
+        data_tests:
+          - not_null
+      - name: longitude
+        description: "Longitude of the sighting."
+        data_tests:
+          - not_null
+      - name: has_weapon
+        description: "Was the perpetrator observed to be armed?"
+        data_tests:
+          - not_null
+      - name: has_hat
+        description: "Was the perpetrator wearing a hat?"
+        data_tests:
+          - not_null
+      - name: has_jacket
+        description: "Was the perpetrator wearing a jacket?"
+        data_tests:
+          - not_null
+      - name: behavior
+        description: "Short description of observed behavior."
+        data_tests:
+          - not_null
+  - name: stg_sightings_atlantic
+    description: "Staging model for Atlantic sightings data"
+    columns:
+      - name: sighting_id
+        description: "Surrogate key over the full natural record of the report."
+        data_tests:
+          - not_null
+          - unique
+      - name: agency_region
+        description: "Region literal for the filing agency. Constant within the model."
+        data_tests:
+          - not_null
+      - name: date_witness
+        description: "Date the witness saw the perpetrator."
+        data_tests:
+          - not_null
+      - name: witness
+        description: "Name of the witness."
+        data_tests:
+          - not_null
+      - name: agent
+        description: "Name of the field agent who filed the report."
+        data_tests:
+          - not_null
+      - name: date_agent
+        description: "Date the field agent filed the report."
+        data_tests:
+          - not_null
+      - name: city_agent
+        description: "HQ city the field agent reports to."
+        data_tests:
+          - not_null
+      - name: country
+        description: "ISO-3166 alpha-2 country code of the sighting."
+        data_tests:
+          - not_null
+      - name: city
+        description: "City of the sighting."
+        data_tests:
+          - not_null
+      - name: latitude
+        description: "Latitude of the sighting."
+        data_tests:
+          - not_null
+      - name: longitude
+        description: "Longitude of the sighting."
+        data_tests:
+          - not_null
+      - name: has_weapon
+        description: "Was the perpetrator observed to be armed?"
+        data_tests:
+          - not_null
+      - name: has_hat
+        description: "Was the perpetrator wearing a hat?"
+        data_tests:
+          - not_null
+      - name: has_jacket
+        description: "Was the perpetrator wearing a jacket?"
+        data_tests:
+          - not_null
+      - name: behavior
+        description: "Short description of observed behavior."
+        data_tests:
+          - not_null
+  - name: stg_sightings_australia
+    description: "Staging model for Australia sightings data"
+    columns:
+      - name: sighting_id
+        description: "Surrogate key over the full natural record of the report."
+        data_tests:
+          - not_null
+          - unique
+      - name: agency_region
+        description: "Region literal for the filing agency. Constant within the model."
+        data_tests:
+          - not_null
+      - name: date_witness
+        description: "Date the witness saw the perpetrator."
+        data_tests:
+          - not_null
+      - name: witness
+        description: "Name of the witness."
+        data_tests:
+          - not_null
+      - name: agent
+        description: "Name of the field agent who filed the report."
+        data_tests:
+          - not_null
+      - name: date_agent
+        description: "Date the field agent filed the report."
+        data_tests:
+          - not_null
+      - name: city_agent
+        description: "HQ city the field agent reports to."
+        data_tests:
+          - not_null
+      - name: country
+        description: "ISO-3166 alpha-2 country code of the sighting."
+        data_tests:
+          - not_null
+      - name: city
+        description: "City of the sighting."
+        data_tests:
+          - not_null
+      - name: latitude
+        description: "Latitude of the sighting."
+        data_tests:
+          - not_null
+      - name: longitude
+        description: "Longitude of the sighting."
+        data_tests:
+          - not_null
+      - name: has_weapon
+        description: "Was the perpetrator observed to be armed?"
+        data_tests:
+          - not_null
+      - name: has_hat
+        description: "Was the perpetrator wearing a hat?"
+        data_tests:
+          - not_null
+      - name: has_jacket
+        description: "Was the perpetrator wearing a jacket?"
+        data_tests:
+          - not_null
+      - name: behavior
+        description: "Short description of observed behavior."
+        data_tests:
+          - not_null
+  - name: stg_sightings_europe
+    description: "Staging model for Europe sightings data"
+    columns:
+      - name: sighting_id
+        description: "Surrogate key over the full natural record of the report."
+        data_tests:
+          - not_null
+          - unique
+      - name: agency_region
+        description: "Region literal for the filing agency. Constant within the model."
+        data_tests:
+          - not_null
+      - name: date_witness
+        description: "Date the witness saw the perpetrator."
+        data_tests:
+          - not_null
+      - name: witness
+        description: "Name of the witness."
+        data_tests:
+          - not_null
+      - name: agent
+        description: "Name of the field agent who filed the report."
+        data_tests:
+          - not_null
+      - name: date_agent
+        description: "Date the field agent filed the report."
+        data_tests:
+          - not_null
+      - name: city_agent
+        description: "HQ city the field agent reports to."
+        data_tests:
+          - not_null
+      - name: country
+        description: "ISO-3166 alpha-2 country code of the sighting."
+        data_tests:
+          - not_null
+      - name: city
+        description: "City of the sighting."
+        data_tests:
+          - not_null
+      - name: latitude
+        description: "Latitude of the sighting."
+        data_tests:
+          - not_null
+      - name: longitude
+        description: "Longitude of the sighting."
+        data_tests:
+          - not_null
+      - name: has_weapon
+        description: "Was the perpetrator observed to be armed?"
+        data_tests:
+          - not_null
+      - name: has_hat
+        description: "Was the perpetrator wearing a hat?"
+        data_tests:
+          - not_null
+      - name: has_jacket
+        description: "Was the perpetrator wearing a jacket?"
+        data_tests:
+          - not_null
+      - name: behavior
+        description: "Short description of observed behavior."
+        data_tests:
+          - not_null
+  - name: stg_sightings_indian
+    description: "Staging model for Indian sightings data"
+    columns:
+      - name: sighting_id
+        description: "Surrogate key over the full natural record of the report."
+        data_tests:
+          - not_null
+          - unique
+      - name: agency_region
+        description: "Region literal for the filing agency. Constant within the model."
+        data_tests:
+          - not_null
+      - name: date_witness
+        description: "Date the witness saw the perpetrator."
+        data_tests:
+          - not_null
+      - name: witness
+        description: "Name of the witness."
+        data_tests:
+          - not_null
+      - name: agent
+        description: "Name of the field agent who filed the report."
+        data_tests:
+          - not_null
+      - name: date_agent
+        description: "Date the field agent filed the report."
+        data_tests:
+          - not_null
+      - name: city_agent
+        description: "HQ city the field agent reports to."
+        data_tests:
+          - not_null
+      - name: country
+        description: "ISO-3166 alpha-2 country code of the sighting."
+        data_tests:
+          - not_null
+      - name: city
+        description: "City of the sighting."
+        data_tests:
+          - not_null
+      - name: latitude
+        description: "Latitude of the sighting."
+        data_tests:
+          - not_null
+      - name: longitude
+        description: "Longitude of the sighting."
+        data_tests:
+          - not_null
+      - name: has_weapon
+        description: "Was the perpetrator observed to be armed?"
+        data_tests:
+          - not_null
+      - name: has_hat
+        description: "Was the perpetrator wearing a hat?"
+        data_tests:
+          - not_null
+      - name: has_jacket
+        description: "Was the perpetrator wearing a jacket?"
+        data_tests:
+          - not_null
+      - name: behavior
+        description: "Short description of observed behavior."
+        data_tests:
+          - not_null
+  - name: stg_sightings_pacific
+    description: "Staging model for Pacific sightings data"
     columns:
       - name: sighting_id
         description: "Surrogate key over the full natural record of the report."
