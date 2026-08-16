@@ -10,7 +10,7 @@ with observations as (
         dim_attribute.has_weapon_has_jacket_no_hat
     from {{ ref('fact_sightings') }} as fact_sightings
     inner join {{ ref('dim_temporal') }} as dim_temporal
-        on fact_sightings.witness_date_key = dim_temporal.date_key
+        on fact_sightings.witness_date_key = dim_temporal.temporal_key
     inner join {{ ref('dim_attribute') }} as dim_attribute
         on fact_sightings.attribute_key = dim_attribute.attribute_key
 ),
