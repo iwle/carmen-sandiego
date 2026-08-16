@@ -32,7 +32,7 @@ models:
   - name: dim_temporal
     description: "Dimension model for temporal data"
     columns:
-      - name: date_key
+      - name: temporal_key 
         description: "Date key in YYYYMMDD format"
         tests:
           - not_null
