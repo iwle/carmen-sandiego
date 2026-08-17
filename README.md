@@ -271,6 +271,18 @@ There was also some confusion over the term ‘NA’. However, because it is a v
 ## Step 3. Normalizing beyond 1NF
 The `stg` tables are all 1NF. Each row in the table repeats the witness’ name, agent’s name, HQ city, country, city, coordinates (latitude, longitude) and behavior.
 
+In step 3, I normalize it to 2NF. Each dim has a primary key (PK) that the fact table references via FK.
+
+The rows are also deduplicated: instead of “New York” appearing 1,700 times across your 13,600 sightings, dim_location has it once and fct_sightings just carries the FK.
+
+Subsequently, I create an intermediate, ephemeral table which is `int_sightings`. This is then used to create the 3NF table, `fact_sightings` that comprises of the FKs to individual dim tables.
+
+## Step 4. Creating the analytics tables
+
+From the fact tables, the analytics tables are created to answer the questions.
+
+The analytics tables sit on top of the star schema.
+
 ## Entity-Relationship Diagram
 The Carmen project has a star schema:
 
